@@ -197,7 +197,7 @@ describe("JestAction", () => {
             const args = buildArgs({
                 coverageReporters: ["text", "lcov", "html"],
             });
-            const reporterCount = args.filter(a => a === "--coverageReporters").length;
+            const reporterCount = args.filter((a: string) => a === "--coverageReporters").length;
             expect(reporterCount).toBe(3);
             expect(args).toContain("text");
             expect(args).toContain("lcov");

@@ -2,14 +2,28 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
 title: "@getkist/action-jest"
-version: 1.0.0
-abstract: "Jest test runner action for kist"
+version: 1.0.1
+date-released: "2026-02-08"
+abstract: "Jest test runner action for kist - A TypeScript-based build orchestration tool"
 authors:
-  - name: "kist"
+  - name: "kist contributors"
+    affiliation: "kist project"
 repository-code: "https://github.com/getkist/kist-action-jest"
+url: "https://kist.js.org"
 license: MIT
 keywords:
   - kist
   - jest
   - testing
+  - unit-tests
   - test-runner
+  - typescript
+  - javascript
+  - build-tool
+references:
+  - type: software
+    title: "Jest"
+    url: "https://jestjs.io"
+  - type: software
+    title: "kist"
+    repository-code: "https://github.com/getkist/kist"

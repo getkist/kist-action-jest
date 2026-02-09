@@ -15,6 +15,7 @@ import { ActionPlugin } from "./types/Action.js";
 import { JestAction } from "./actions/JestAction/index.js";
 
 const plugin: ActionPlugin = {
+    name: "@getkist/action-jest",
     version: "1.0.0",
     description: "Jest test runner integration for kist",
     author: "kist",

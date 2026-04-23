@@ -1,6 +1,6 @@
 {
   "name": "@getkist/action-jest",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Jest test runner action for kist",
   "main": "./dist/index.cjs",
   "types": "dist/index.d.ts",

@@ -81,7 +81,7 @@ Runs Jest tests with configurable options.
 ### Options
 
 | Option | Type | Default | Description |
-|--------|------|---------|-------------|
+| -------- | ------ | --------- | ------------- |
 | `configPath` | string | - | Path to Jest config file |
 | `testMatch` | string[] | - | Test file patterns to run |
 | `testPathPattern` | string | - | Regex pattern for test file paths |

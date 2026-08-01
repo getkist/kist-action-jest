@@ -105,18 +105,14 @@ Runs Jest tests with configurable options.
 | `forceExit` | boolean | false | Force Jest to exit after tests |
 | `detectOpenHandles` | boolean | false | Detect open handles preventing exit |
 | `passWithNoTests` | boolean | false | Pass when no tests found |
-| `reporters` | string[] | - | Custom Jest reporters |
-| `projects` | string[] | - | Projects to run |
-| `roots` | string[] | - | Test root directories |
-| `setupFilesAfterEnv` | string[] | - | Setup files to run after env |
-| `testEnvironment` | string | - | Test environment (node, jsdom) |
-| `testTimeout` | number | - | Test timeout in ms |
-| `globals` | object | - | Global variables |
-| `moduleNameMapper` | object | - | Module path mappings |
+| `testNamePattern` | string | - | Only run tests whose full name (describe + it) matches this regex pattern |
+| `cwd` | string | `process.cwd()` | Working directory Jest is spawned from |
+| `nodeOptions` | string | - | Additional value for the `NODE_OPTIONS` environment variable passed to the spawned Jest process (e.g. `--experimental-vm-modules`) |
+| `env` | object | - | Extra environment variables to set on the spawned Jest process |
 
 ## Requirements
 
-- Node.js >= 20.0.0
+- Node.js >= 22.0.0
 - kist >= 0.1.58
 
 ## License

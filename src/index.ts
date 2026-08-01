@@ -23,7 +23,7 @@ import { JestAction } from "./actions/JestAction/index.js";
  */
 const plugin: ActionPlugin = {
     name: "@getkist/action-jest",
-    version: "1.0.0",
+    version: "1.0.27",
     description: "Jest test runner integration for kist",
     author: "kist",
     repository: "https://github.com/getkist/kist-action-jest",

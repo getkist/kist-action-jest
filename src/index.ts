@@ -14,6 +14,13 @@ export type { ActionOptionsType } from "./types/Action.js";
 import { ActionPlugin } from "./types/Action.js";
 import { JestAction } from "./actions/JestAction/index.js";
 
+/**
+ * kist plugin manifest for this package. Discovered and loaded by kist's
+ * plugin resolver via the package's default export; `registerActions`
+ * returns the map of action names to action classes that kist instantiates
+ * one per pipeline step, so keys here must match the `action:` value used
+ * in `kist.yml` (e.g. `action: JestAction`).
+ */
 const plugin: ActionPlugin = {
     name: "@getkist/action-jest",
     version: "1.0.0",

@@ -1,5 +1,14 @@
 import { Action } from "../../types/Action.js";
 import { spawn } from "child_process";
+import { createRequire } from "module";
+
+/**
+ * This package is ESM, where the bare `require` this used to call does not
+ * exist — resolving Jest's binary threw a ReferenceError on every run. kist
+ * loads plugins with `await import()`, so that is the path every pipeline
+ * takes. `createRequire` gives back a resolver bound to this module.
+ */
+const requireFrom = createRequire(import.meta.url);
 
 /**
  * Configuration options for {@link JestAction}. These map closely to Jest's
@@ -221,6 +230,11 @@ export interface JestActionOptions {
  * mirrors Jest's own semantics rather than reimplementing them.
  */
 export class JestAction extends Action<JestActionOptions> {
+    /**
+     * The name this action is registered and referenced by. A step's
+     * `action: JestAction` in kist.yaml resolves through this value, and it
+     * also prefixes the action's log output.
+     */
     readonly name = "JestAction";
 
     /**
@@ -327,6 +341,16 @@ export class JestAction extends Action<JestActionOptions> {
 
         if (options.configPath) {
             args.push("--config", options.configPath);
+        }
+
+        // `testMatch` is a repeatable array flag, like `--coverageReporters`
+        // below. It was declared as an option and documented as taking
+        // effect, but never reached the CLI at all — so setting it silently
+        // ran Jest's default discovery instead.
+        if (options.testMatch && options.testMatch.length > 0) {
+            for (const pattern of options.testMatch) {
+                args.push("--testMatch", pattern);
+            }
         }
 
         if (options.testPathPattern) {
@@ -459,7 +483,10 @@ export class JestAction extends Action<JestActionOptions> {
         env?: Record<string, string>
     ): Promise<void> {
         return new Promise((resolve, reject) => {
-            const jestBin = require.resolve("jest/bin/jest.js");
+            // "jest/bin/jest", not "jest/bin/jest.js": the jest package's
+            // `exports` map publishes the extensionless subpath only, and Node
+            // refuses anything the map does not name.
+            const jestBin = requireFrom.resolve("jest/bin/jest");
             
             const spawnEnv = {
                 ...process.env,
@@ -470,9 +497,15 @@ export class JestAction extends Action<JestActionOptions> {
                 spawnEnv.NODE_OPTIONS = nodeOptions;
             }
 
-            this.logDebug(`Running: node ${jestBin} ${args.join(" ")}`);
+            this.logDebug(
+                `Running: ${process.execPath} ${jestBin} ${args.join(" ")}`,
+            );
 
-            const child = spawn("node", [jestBin, ...args], {
+            // `process.execPath` rather than "node": the tests must run on
+            // the same runtime as the pipeline, which a bare "node" resolved
+            // from PATH is not guaranteed to be — and need not be on PATH at
+            // all when kist runs under a version manager.
+            const child = spawn(process.execPath, [jestBin, ...args], {
                 cwd,
                 env: spawnEnv,
                 stdio: "inherit",

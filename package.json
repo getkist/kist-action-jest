@@ -1,70 +1,88 @@
 {
-  "name": "@getkist/action-jest",
-  "version": "1.0.28",
-  "description": "Jest test runner action for kist",
-  "main": "./dist/index.cjs",
-  "types": "dist/index.d.ts",
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.cjs"
-      }
+    "name": "@getkist/action-jest",
+    "version": "1.0.29",
+    "description": "Jest test runner action for kist",
+    "main": "./dist/index.cjs",
+    "types": "dist/index.d.ts",
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.mjs"
+            },
+            "require": {
+                "types": "./dist/index.d.ts",
+                "default": "./dist/index.cjs"
+            }
+        },
+        "./package.json": "./package.json"
     },
-    "./package.json": "./package.json"
-  },
-  "scripts": {
-    "build": "tsup",
-    "test": "NODE_OPTIONS='--experimental-vm-modules' jest",
-    "lint": "eslint src/**/*.ts",
-    "prepublishOnly": "npm run build && npm test"
-  },
-  "keywords": [
-    "kist",
-    "jest",
-    "testing",
-    "test-runner",
-    "plugin"
-  ],
-  "author": "kist",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/getkist/kist-action-jest.git"
-  },
-  "engines": {
-    "node": ">=22.0.0",
-    "npm": ">=10.0.0"
-  },
-  "dependencies": {
-    "jest": "^30.4.2"
-  },
-  "devDependencies": {
-    "@eslint/js": "10.0.1",
-    "@types/jest": "^30.0.0",
-    "@types/node": "^26.1.2",
-    "eslint": "^10.8.0",
-    "ts-jest": "^29.4.12",
-    "tsup": "^8.5.1",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "8.65.0"
-  },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ],
-  "peerDependencies": {
-    "kist": ">=0.1.58"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "sideEffects": false,
-  "module": "./dist/index.mjs"
+    "scripts": {
+        "build": "tsup",
+        "build:watch": "tsup --watch",
+        "test": "NODE_OPTIONS='--experimental-vm-modules' jest",
+        "test:watch": "NODE_OPTIONS='--experimental-vm-modules' jest --watch",
+        "test:coverage": "NODE_OPTIONS='--experimental-vm-modules' jest --coverage",
+        "test:unit": "NODE_OPTIONS='--experimental-vm-modules' jest --testPathPatterns='tst[\\/]unit[\\/]'",
+        "test:integration": "NODE_OPTIONS='--experimental-vm-modules' jest --testPathPatterns='tst[\\/]integration[\\/]'",
+        "lint": "eslint src/**/*.ts",
+        "lint:fix": "eslint 'src/**/*.ts' --fix",
+        "format": "prettier --write 'src/**/*.ts'",
+        "clean": "rm -rf dist docs/api coverage",
+        "prepublishOnly": "npm run clean && npm run build && npm test"
+    },
+    "keywords": [
+        "kist",
+        "jest",
+        "testing",
+        "test-runner",
+        "plugin"
+    ],
+    "author": "kist",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/getkist/kist-action-jest.git"
+    },
+    "engines": {
+        "node": ">=22.0.0",
+        "npm": ">=10.0.0"
+    },
+    "dependencies": {
+        "jest": "^30.4.2"
+    },
+    "devDependencies": {
+        "@eslint/js": "10.0.1",
+        "@types/jest": "^30.0.0",
+        "@types/node": "^26.1.2",
+        "eslint": "^10.8.0",
+        "ts-jest": "^29.4.12",
+        "tsup": "^8.5.1",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "8.65.0"
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "peerDependencies": {
+        "kist": ">=0.1.58"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "sideEffects": false,
+    "module": "./dist/index.mjs",
+    "homepage": "https://github.com/getkist/kist-action-jest#readme",
+    "bugs": {
+        "url": "https://github.com/getkist/kist-action-jest/issues"
+    },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/scape-foundation"
+        }
+    ]
 }

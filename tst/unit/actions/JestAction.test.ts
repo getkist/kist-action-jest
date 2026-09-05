@@ -193,6 +193,24 @@ describe("JestAction", () => {
             expect(threshold.global.functions).toBe(75);
         });
 
+        it("should forward testMatch patterns", () => {
+            // `testMatch` was declared and documented but never reached the
+            // CLI, so setting it silently ran Jest's default discovery.
+            const args = buildArgs({
+                testMatch: ["**/*.spec.ts", "**/*.test.ts"],
+            });
+            const matchCount = args.filter(
+                (a: string) => a === "--testMatch",
+            ).length;
+            expect(matchCount).toBe(2);
+            expect(args).toContain("**/*.spec.ts");
+            expect(args).toContain("**/*.test.ts");
+        });
+
+        it("should omit testMatch when it is not set", () => {
+            expect(buildArgs({})).not.toContain("--testMatch");
+        });
+
         it("should add multiple coverageReporters", () => {
             const args = buildArgs({
                 coverageReporters: ["text", "lcov", "html"],
